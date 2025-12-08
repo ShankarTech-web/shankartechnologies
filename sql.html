@@ -3,219 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SQL Overview & Sub-Languages</title>
+    <title>Comprehensive SQL Guide</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f9f9f9;
+            background-color: #f4f6f8;
         }
         h1 {
             color: #2c3e50;
-            border-bottom: 2px solid #3498db;
+            border-bottom: 3px solid #3498db;
             padding-bottom: 10px;
+            text-align: center;
         }
         h2 {
             color: #2980b9;
-            margin-top: 30px;
+            margin-top: 40px;
+            border-left: 5px solid #2980b9;
+            padding-left: 10px;
         }
         h3 {
             color: #16a085;
-            background-color: #e8f8f5;
-            padding: 10px;
+            margin-top: 25px;
+        }
+        .section-box {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        code {
+            background-color: #f1f1f1;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: 'Consolas', monospace;
+            color: #c7254e;
+        }
+        pre {
+            background-color: #2d3436;
+            color: #f1f1f1;
+            padding: 15px;
             border-radius: 5px;
-            border-left: 5px solid #16a085;
-        }
-        ul {
-            list-style-type: square;
-        }
-        li {
-            margin-bottom: 5px;
-        }
-        .command-list dt {
-            font-weight: bold;
-            color: #c0392b;
-            margin-top: 10px;
-            font-family: monospace;
-            font-size: 1.1em;
-        }
-        .command-list dd {
-            margin-left: 20px;
-            margin-bottom: 5px;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
         }
         .note {
             background-color: #fff3cd;
-            border: 1px solid #ffeeba;
-            padding: 10px;
-            border-radius: 4px;
-            font-style: italic;
-            margin-top: 10px;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
         }
-        /* Table Styling */
+        .important {
+            background-color: #ffebee;
+            border-left: 5px solid #e74c3c;
+            padding: 15px;
+            margin: 15px 0;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-top: 15px;
         }
         th, td {
+            border: 1px solid #ddd;
             padding: 12px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
         }
         th {
             background-color: #34495e;
             color: white;
         }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        ul, ol {
+            margin-left: 20px;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Introduction to SQL</h1>
-        
-        <p><strong>SQL</strong> is a standard language for accessing and manipulating databases.</p>
+    <div class="section-box">
+        <h1>Comprehensive SQL Guide</h1>
+        <p>This document covers the 5 sub-languages of SQL, constraints, joins, clauses, and advanced concepts like Stored Procedures.</p>
+    </div>
 
-        <h2>What is SQL?</h2>
-        <ul>
-            <li><strong>SQL</strong> stands for Structured Query Language.</li>
-            <li><strong>SQL</strong> lets you access and manipulate databases.</li>
-            <li><strong>SQL</strong> became a standard of the American National Standards Institute (ANSI) in 1986, and of the International Organization for Standardization (ISO) in 1987.</li>
-        </ul>
-
-        <h2>What Can SQL Do?</h2>
-        <ul>
-            <li>Execute queries against a database</li>
-            <li>Retrieve data from a database</li>
-            <li>Insert records in a database</li>
-            <li>Update records in a database</li>
-            <li>Delete records from a database</li>
-            <li>Create new databases</li>
-            <li>Create new tables in a database</li>
-            <li>Create stored procedures in a database</li>
-            <li>Create views in a database</li>
-            <li>Set permissions on tables, procedures, and views</li>
-        </ul>
-
-        <hr>
-
-        <h1>The 5 Groups of SQL Queries</h1>
-        <p>All SQL Queries utilize commands that are divided into 5 distinct groups:</p>
-        <ol>
-            <li>Data Definition Language (DDL)</li>
-            <li>Data Manipulation Language (DML)</li>
-            <li>Data Query Language (DQL)</li>
-            <li>Data Control Language (DCL)</li>
-            <li>Transaction Control Language (TCL)</li>
-        </ol>
+    <div class="section-box">
+        <h2>1. The 5 Groups of SQL Queries</h2>
+      <p>All SQL Queries utilize commands that are divided into 5 distinct groups[cite: 1, 156]:</p>
 
         <h3>1. Data Definition Language (DDL)</h3>
-        <p><strong>Purpose:</strong> Used to define and modify the structure (schema) of the database objects (tables, indexes, views), not the data inside them.</p>
-        <dl class="command-list">
-            <dt>CREATE</dt>
-            <dd>Creates a new table, database, or other objects.</dd>
-            <dt>ALTER</dt>
-            <dd>Modifies an existing database object (e.g., adding a column).</dd>
-            <dt>DROP</dt>
-            <dd>Deletes an entire table or database object (structure + data).</dd>
-            <dt>TRUNCATE</dt>
-            <dd>Removes all records from a table but keeps the structure.</dd>
-            <dt>RENAME</dt>
-            <dd>Renames an object.</dd>
-        </dl>
-        <div class="note"><strong>Note:</strong> DDL commands are usually "auto-committed," meaning the changes are saved permanently immediately.</div>
+        <p>Used to define and modify the structure (schema) of database objects.</p>
+        <ul>
+         <li><strong>CREATE:</strong> Creates a new table or database[cite: 58].</li>
+           <li><strong>ALTER:</strong> Adds, removes, or renames columns[cite: 31].</li>
+            <li><strong>DROP:</strong> Deletes an entire table or database (structure + data)[cite: 16].</li>
+            <li><strong>TRUNCATE:</strong> Removes all records but keeps the structure[cite: 20].</li>
+        </ul>
+        <pre>-- Example: Adding a column
+ALTER TABLE employee ADD country VARCHAR(20); [cite: 32]</pre>
 
         <h3>2. Data Manipulation Language (DML)</h3>
-        <p><strong>Purpose:</strong> Used to manage and modify the data present within the schema.</p>
-        <dl class="command-list">
-            <dt>INSERT</dt>
-            <dd>Inserts new data (rows) into a table.</dd>
-            <dt>UPDATE</dt>
-            <dd>Updates existing data within a table.</dd>
-            <dt>DELETE</dt>
-            <dd>Deletes specific records (rows) from a table.</dd>
-        </dl>
+        <p>Used to manage and modify the data within the schema[cite: 30].</p>
+        <ul>
+            <li><strong>INSERT:</strong> Adds new records. Can insert single or multiple rows[cite: 156].</li>
+            <li><strong>UPDATE:</strong> Modifies existing data. Can use `CASE` for conditional updates[cite: 45].</li>
+            <li><strong>DELETE:</strong> Removes specific or all records[cite: 5].</li>
+        </ul>
+        <pre>-- Example: Update with CASE
+UPDATE register SET lastname = CASE id 
+    WHEN 1 THEN 'abc'
+    WHEN 2 THEN 'pqr'
+    ELSE lastname END
+WHERE id IN (1,2); [cite: 45]</pre>
 
         <h3>3. Data Query Language (DQL)</h3>
-        <p><strong>Purpose:</strong> Used solely to retrieve and fetch data from the database. It does not modify data or structure.</p>
-        <dl class="command-list">
-            <dt>SELECT</dt>
-            <dd>The primary command used to query data.</dd>
-        </dl>
-        <div class="note"><strong>Note:</strong> In some contexts, DQL is grouped under DML, but keeping it separate is accurate because SELECT is non-destructive (read-only).</div>
+    <p>Used solely to retrieve data[cite: 61].</p>
+        <ul>
+            <li><strong>SELECT:</strong> Retrieves data from a database table.</li>
+        </ul>
 
-        <h3>4. Data Control Language (DCL)</h3>
-        <p><strong>Purpose:</strong> Used to handle rights, permissions, and security of the database system.</p>
-        <dl class="command-list">
-            <dt>GRANT</dt>
-            <dd>Gives users access privileges to the database.</dd>
-            <dt>REVOKE</dt>
-            <dd>Withdraws user access privileges.</dd>
-        </dl>
+        <h3>4. Data Control Language (DCL) & 5. Transaction Control Language (TCL)</h3>
+      <p>Manage permissions (GRANT, REVOKE) and transactions (COMMIT, ROLLBACK, SAVEPOINT)[cite: 1].</p>
+    </div>
 
-        <h3>5. Transaction Control Language (TCL)</h3>
-        <p><strong>Purpose:</strong> Used to manage transactions within the database. These commands play a vital role in maintaining data integrity, usually working alongside DML commands.</p>
-        <dl class="command-list">
-            <dt>COMMIT</dt>
-            <dd>Saves the work done in a transaction permanently.</dd>
-            <dt>ROLLBACK</dt>
-            <dd>Restores the database to the state it was in before the last commit (undoes changes).</dd>
-            <dt>SAVEPOINT</dt>
-            <dd>Sets a point within a transaction to which you can later roll back.</dd>
-        </dl>
-
-        <h2>Quick Reference Table</h2>
+    <div class="section-box">
+        <h2>2. SQL Constraints</h2>
+        <p>Constraints are rules applied to columns to ensure data integrity[cite: 67].</p>
+        
         <table>
-            <thead>
-                <tr>
-                    <th>Group</th>
-                    <th>Focus</th>
-                    <th>Key Commands</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>DDL</strong></td>
-                    <td>Structure</td>
-                    <td>CREATE, ALTER, DROP, TRUNCATE</td>
-                </tr>
-                <tr>
-                    <td><strong>DML</strong></td>
-                    <td>Data Modification</td>
-                    <td>INSERT, UPDATE, DELETE</td>
-                </tr>
-                <tr>
-                    <td><strong>DQL</strong></td>
-                    <td>Data Retrieval</td>
-                    <td>SELECT</td>
-                </tr>
-                <tr>
-                    <td><strong>DCL</strong></td>
-                    <td>Permissions</td>
-                    <td>GRANT, REVOKE</td>
-                </tr>
-                <tr>
-                    <td><strong>TCL</strong></td>
-                    <td>Transactions</td>
-                    <td>COMMIT, ROLLBACK, SAVEPOINT</td>
-                </tr>
-            </tbody>
+            <tr>
+                <th>Constraint</th>
+                <th>Definition</th>
+            </tr>
+            <tr>
+                <td><strong>NOT NULL</strong></td>
+               <td>Ensures a column cannot accept null values[cite: 68].</td>
+            </tr>
+            <tr>
+                <td><strong>UNIQUE</strong></td>
+                <td>Ensures all values in a column are different[cite: 68].</td>
+            </tr>
+            <tr>
+                <td><strong>PRIMARY KEY</strong></td>
+                <td>Combination of `NOT NULL` + `UNIQUE`.Uniquely identifies each record[cite: 68].</td>
+            </tr>
+            <tr>
+                <td><strong>FOREIGN KEY</strong></td>
+                <td>A field that refers to the Primary Key in another table[cite: 68].</td>
+            </tr>
+            <tr>
+                <td><strong>CHECK</strong></td>
+                <td>Ensures that the values in a column satisfy a specific condition (e.g., age > 18)[cite: 68, 69].</td>
+            </tr>
+            <tr>
+                <td><strong>DEFAULT</strong></td>
+            <td>Sets a default value for a column if no value is specified[cite: 68].</td>
+            </tr>
+            <tr>
+                <td><strong>IDENTITY</strong></td>
+                <td>Auto-increments the column value automatically (e.g., starting at 101, incrementing by 1)[cite: 68, 71].</td>
+            </tr>
+        </table>
+        <pre>-- Example Table Creation
+CREATE TABLE employee (
+    id INT PRIMARY KEY IDENTITY(101, 1), 
+    firstname VARCHAR(20) NOT NULL, 
+    age INT CHECK(age > 18),
+    gender VARCHAR(30) DEFAULT 'male'
+); [cite: 71]</pre>
+    </div>
+
+    <div class="section-box">
+        <h2>3. Clauses and Operators</h2>
+        
+        <h3>ORDER BY Clause</h3>
+        <p>Used to sort the result-set in ascending (ASC) or descending (DESC) order[cite: 74].</p>
+        <pre>SELECT * FROM employee ORDER BY salary DESC; [cite: 75]</pre>
+
+        <h3>LIKE Operator (Pattern Matching)</h3>
+        <p>Used in a WHERE clause to search for a specified pattern in a column.</p>
+        <ul>
+            <li><strong>% (Percent):</strong> Represents zero, one, or multiple characters[cite: 78].</li>
+            <li><strong>_ (Underscore):</strong> Represents exactly one single character[cite: 78].</li>
+        </ul>
+        <pre>-- Finds firstname starting with any character, but second character is 'a'
+SELECT * FROM employee WHERE firstname LIKE '_a%'; [cite: 79]</pre>
+
+        <h3>GROUP BY Clause</h3>
+        <p>Groups rows that have the same values into summary rows.  It is often used with aggregate functions like COUNT, MAX, MIN, SUM, AVG[cite: 179, 180].</p>
+        <pre>-- Example: Count offers per circle
+SELECT circle, COUNT(offers) FROM endcustomer GROUP BY circle; [cite: 182]</pre>
+    </div>
+
+    <div class="section-box">
+        <h2>4. SQL Joins</h2>
+        <p>A JOIN clause is used to combine rows from two or more tables, based on a related column between them.  There are 6 main types[cite: 248].</p>
+        
+        
+        <h3>Types of Joins:</h3>
+        <ul>
+             <li><strong>Inner Join:</strong> Returns records that have matching values in both tables[cite: 248].</li>
+            <li><strong>Left Join:</strong> Returns all records from the left table, and the matched records from the right table. (Returns NULL for no match)  [cite: 253].</li>
+             <li><strong>Right Join:</strong> Returns all records from the right table, and the matched records from the left table[cite: 256].</li>
+             <li><strong>Full Join:</strong> Returns all records when there is a match in either left or right table[cite: 260].</li>
+             <li><strong>Cross Join:</strong> Returns the Cartesian product (all combinations) of the two tables[cite: 263].</li>
+             <li><strong>Self Join:</strong> A regular join, but the table is joined with itself[cite: 264].</li>
+        </ul>
+        <pre>-- Example: Joining 3 Tables (Inner Join)
+SELECT * FROM employee 
+INNER JOIN dept ON employee.id = dept.id
+ INNER JOIN register ON employee.id = register.id; [cite: 103]</pre>
+    </div>
+
+    <div class="section-box">
+        <h2>5. Advanced Concepts</h2>
+
+        <h3>Stored Procedures</h3>
+         <p>A stored procedure is a prepared SQL code that you can save, so the code can be reused over and over again[cite: 215]. It can accept parameters.</p>
+        <pre>-- Creating a procedure to update salary
+CREATE PROCEDURE updateSalaryById
+    @SalaryValue INT, @IdValue INT
+AS BEGIN
+    UPDATE employee SET salary = @SalaryValue WHERE id = @IdValue;
+ END; [cite: 221]
+
+-- Executing the procedure
+ EXEC updateSalaryById @SalaryValue = 999, @IdValue = 5; [cite: 222]</pre>
+
+        <h3>Ranking Functions (DENSE_RANK)</h3>
+        <p><code>DENSE_RANK()</code> assigns a rank to each row within a partition of a result set.  It handles duplicates by giving them the same rank and does not skip the next rank number[cite: 206, 207].</p>
+        <pre>-- Finding the 2nd lowest salary using a Subquery
+SELECT * FROM (
+    SELECT *, DENSE_RANK() OVER (ORDER BY salary ASC) AS rnk FROM employee
+ ) AS tempEmployee WHERE rnk = 2; [cite: 211]</pre>
+
+        <h3>Common Table Expressions (CTE / WITH Clause)</h3>
+         <p>The <code>WITH</code> clause defines a temporary result set (CTE) that you can reference within another SELECT, INSERT, UPDATE, or DELETE statement[cite: 208].</p>
+        <pre>-- Using WITH to find Nth highest salary
+WITH tempEmployee AS (
+    SELECT *, DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk FROM employee
+)
+ SELECT * FROM tempEmployee WHERE rnk = 5; [cite: 210]</pre>
+    </div>
+
+    <div class="section-box important">
+        <h2>6. Critical Interview Question: DELETE vs DROP vs TRUNCATE</h2>
+         <p>This is a very important concept[cite: 24, 30].</p>
+
+        <table>
+            <tr>
+                <th>Feature</th>
+                 <th>DELETE [cite: 24, 25, 26]</th>
+                 <th>TRUNCATE [cite: 21, 22, 29]</th>
+                 <th>DROP [cite: 16, 17, 18, 28]</th>
+            </tr>
+            <tr>
+                <td><strong>Group</strong></td>
+                <td>DML (Data Manipulation)</td>
+                <td>DDL (Data Definition)</td>
+                <td>DDL (Data Definition)</td>
+            </tr>
+            <tr>
+                <td><strong>What it does</strong></td>
+                <td>Deletes specific rows (based on WHERE) or all rows.</td>
+                <td>Removes ALL rows from the table.</td>
+                <td>Deletes the entire table structure and data.</td>
+            </tr>
+            <tr>
+                <td><strong>Structure</strong></td>
+                <td>Table structure remains.</td>
+                <td>Table structure remains.</td>
+                <td>Table structure is removed.</td>
+            </tr>
+            <tr>
+                <td><strong>Speed</strong></td>
+                <td>Slowest (logs individual row deletions).</td>
+                <td>Faster than Delete, Slower than Drop.</td>
+                <td>Fastest.</td>
+            </tr>
+            <tr>
+                <td><strong>Rollback</strong></td>
+                <td>Can be rolled back.</td>
+                <td>Cannot be rolled back (generally).</td>
+                <td>Cannot be rolled back.</td>
+            </tr>
         </table>
     </div>
 
 </body>
 </html>
+
