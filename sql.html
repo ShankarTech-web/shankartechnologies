@@ -3,302 +3,347 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comprehensive SQL Guide </title>
+    <title>SQL Master Notes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 950px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f4f6f8;
-        }
-        h1 {
-            color: #2c3e50;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 10px;
-            text-align: center;
-        }
-        h2 {
-            color: #2980b9;
-            margin-top: 40px;
-            border-left: 5px solid #2980b9;
-            padding-left: 10px;
-        }
-        h3 {
-            color: #16a085;
-            margin-top: 25px;
-        }
-        .section-box {
-            background-color: #fff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-        }
-        code {
-            background-color: #f1f1f1;
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-family: 'Consolas', monospace;
-            color: #c7254e;
+            background-color: #f8f9fa;
         }
         pre {
-            background-color: #2d3436;
-            color: #f1f1f1;
+            background-color: #212529;
+            color: #f8f9fa;
             padding: 15px;
             border-radius: 5px;
-            overflow-x: auto;
-            font-family: 'Consolas', monospace;
+            border-left: 5px solid #0d6efd;
         }
-        .note {
-            background-color: #fff3cd;
-            border-left: 5px solid #ffc107;
-            padding: 15px;
-            margin: 15px 0;
+        .section-title {
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: #495057;
         }
-        .important {
-            background-color: #ffebee;
-            border-left: 5px solid #e74c3c;
-            padding: 15px;
-            margin: 15px 0;
+        .important-badge {
+            font-size: 0.9em;
+            vertical-align: middle;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-        th {
-            background-color: #34495e;
-            color: white;
-        }
-        ul, ol {
-            margin-left: 20px;
+        .card-header-custom {
+            font-weight: bold;
+            background-color: #e9ecef;
         }
     </style>
 </head>
-
 <body>
- <div class="container-fluid">
-<div class="text-center mb-4">
- 
-       <p style="font-family: cursive; text-align: center;">With ❤️ by Vikas Pawar</p>
-      </div>
-      </div>
-    <div class="section-box">
-        <h1>Comprehensive SQL Guide</h1>
-        <p>This document covers the 5 sub-languages of SQL, constraints, joins, clauses, and advanced concepts like Stored Procedures.</p>
-    </div>
 
-    <div class="section-box">
-        <h2>1. The 5 Groups of SQL Queries</h2>
-      <p>All SQL Queries utilize commands that are divided into 5 distinct groups[cite: 1, 156]:</p>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">SQL Notes</a>
+            <a href="index.html" class="navbar-brand">Home</a>
+        </div>
+    </nav>
 
-        <h3>1. Data Definition Language (DDL)</h3>
-        <p>Used to define and modify the structure (schema) of database objects.</p>
-        <ul>
-         <li><strong>CREATE:</strong> Creates a new table or database[cite: 58].</li>
-           <li><strong>ALTER:</strong> Adds, removes, or renames columns[cite: 31].</li>
-            <li><strong>DROP:</strong> Deletes an entire table or database (structure + data)[cite: 16].</li>
-            <li><strong>TRUNCATE:</strong> Removes all records but keeps the structure[cite: 20].</li>
-        </ul>
-        <pre>-- Example: Adding a column
-ALTER TABLE employee ADD country VARCHAR(20); [cite: 32]</pre>
-
-        <h3>2. Data Manipulation Language (DML)</h3>
-        <p>Used to manage and modify the data within the schema[cite: 30].</p>
-        <ul>
-            <li><strong>INSERT:</strong> Adds new records. Can insert single or multiple rows[cite: 156].</li>
-            <li><strong>UPDATE:</strong> Modifies existing data. Can use `CASE` for conditional updates[cite: 45].</li>
-            <li><strong>DELETE:</strong> Removes specific or all records[cite: 5].</li>
-        </ul>
-        <pre>-- Example: Update with CASE
-UPDATE register SET lastname = CASE id 
-    WHEN 1 THEN 'abc'
-    WHEN 2 THEN 'pqr'
-    ELSE lastname END
-WHERE id IN (1,2); [cite: 45]</pre>
-
-        <h3>3. Data Query Language (DQL)</h3>
-    <p>Used solely to retrieve data[cite: 61].</p>
-        <ul>
-            <li><strong>SELECT:</strong> Retrieves data from a database table.</li>
-        </ul>
-
-        <h3>4. Data Control Language (DCL) & 5. Transaction Control Language (TCL)</h3>
-      <p>Manage permissions (GRANT, REVOKE) and transactions (COMMIT, ROLLBACK, SAVEPOINT)[cite: 1].</p>
-    </div>
-
-    <div class="section-box">
-        <h2>2. SQL Constraints</h2>
-        <p>Constraints are rules applied to columns to ensure data integrity[cite: 67].</p>
+    <div class="container my-5">
         
-        <table>
-            <tr>
-                <th>Constraint</th>
-                <th>Definition</th>
-            </tr>
-            <tr>
-                <td><strong>NOT NULL</strong></td>
-               <td>Ensures a column cannot accept null values[cite: 68].</td>
-            </tr>
-            <tr>
-                <td><strong>UNIQUE</strong></td>
-                <td>Ensures all values in a column are different[cite: 68].</td>
-            </tr>
-            <tr>
-                <td><strong>PRIMARY KEY</strong></td>
-                <td>Combination of `NOT NULL` + `UNIQUE`.Uniquely identifies each record[cite: 68].</td>
-            </tr>
-            <tr>
-                <td><strong>FOREIGN KEY</strong></td>
-                <td>A field that refers to the Primary Key in another table[cite: 68].</td>
-            </tr>
-            <tr>
-                <td><strong>CHECK</strong></td>
-                <td>Ensures that the values in a column satisfy a specific condition (e.g., age > 18)[cite: 68, 69].</td>
-            </tr>
-            <tr>
-                <td><strong>DEFAULT</strong></td>
-            <td>Sets a default value for a column if no value is specified[cite: 68].</td>
-            </tr>
-            <tr>
-                <td><strong>IDENTITY</strong></td>
-                <td>Auto-increments the column value automatically (e.g., starting at 101, incrementing by 1)[cite: 68, 71].</td>
-            </tr>
-        </table>
-        <pre>-- Example Table Creation
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold">Comprehensive SQL Guide by Vikas Pawar</h1>
+            <p class="lead text-muted">Covering Commands, Joins, Constraints, and Interview Questions</p>
+        </div>
+
+        <section id="sql-groups" class="mb-5">
+            <h2 class="section-title">1. The 5 Groups of SQL Queries <span class="badge bg-primary important-badge">Core Concept</span></h2>
+             <p>All SQL Queries utilize commands that are divided into 5 distinct groups[cite: 1, 127]:</p>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card h-100 border-info">
+                        <div class="card-header card-header-custom text-info-emphasis">1. Data Definition Language (DDL)</div>
+                        <div class="card-body">
+                             <p class="card-text">Used to define and modify the <strong>structure</strong> (schema) of database objects[cite: 1, 35].</p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>CREATE:</strong> Create DB or Table.</li>
+                                <li class="list-group-item"><strong>ALTER:</strong> Add/Drop columns.</li>
+                                <li class="list-group-item"><strong>DROP:</strong> Delete table structure + data.</li>
+                                <li class="list-group-item"><strong>TRUNCATE:</strong> Remove all records, keep structure.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card h-100 border-success">
+                        <div class="card-header card-header-custom text-success-emphasis">2. Data Manipulation Language (DML)</div>
+                        <div class="card-body">
+                             <p class="card-text">Used to manage and modify the <strong>data</strong> within the schema[cite: 1, 41].</p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>INSERT:</strong> Add new rows.</li>
+                                <li class="list-group-item"><strong>UPDATE:</strong> Modify existing rows.</li>
+                                <li class="list-group-item"><strong>DELETE:</strong> Remove specific rows.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card h-100 border-warning">
+                        <div class="card-header card-header-custom text-warning-emphasis">3. Data Query Language (DQL)</div>
+                        <div class="card-body">
+                             <p class="card-text">Used solely to <strong>retrieve</strong> data[cite: 1, 47].</p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>SELECT:</strong> The primary command to fetch data.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card h-100 border-secondary">
+                        <div class="card-header card-header-custom text-secondary-emphasis">4. DCL & 5. TCL</div>
+                        <div class="card-body">
+                             <p class="card-text"><strong>DCL (Control):</strong> Permissions[cite: 1].<br>
+                             <strong>TCL (Transaction):</strong> Data Integrity[cite: 1].</p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>GRANT / REVOKE</strong> (DCL)</li>
+                                <li class="list-group-item"><strong>COMMIT / ROLLBACK</strong> (TCL)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="constraints" class="mb-5">
+            <h2 class="section-title">2. SQL Constraints</h2>
+             <p>Constraints are rules applied to columns to ensure data integrity[cite: 253].</p>
+            
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Constraint</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>NOT NULL</strong></td>
+                             <td>Ensures a column cannot accept null values[cite: 254].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>UNIQUE</strong></td>
+                             <td>Ensures all values in a column are different[cite: 254].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PRIMARY KEY</strong></td>
+                             <td>Combination of <code>NOT NULL</code> + <code>UNIQUE</code>[cite: 254].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FOREIGN KEY</strong></td>
+                             <td>A reference to a Primary Key in another table[cite: 254].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CHECK</strong></td>
+                             <td>Ensures values satisfy a specific condition (e.g., age > 18)[cite: 254].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DEFAULT</strong></td>
+                             <td>Sets a default value if none is specified[cite: 254].</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IDENTITY</strong></td>
+                             <td>Auto-increments the column value automatically[cite: 254].</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="card bg-light mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Example Syntax</h5>
+<pre class="mb-0">
 CREATE TABLE employee (
     id INT PRIMARY KEY IDENTITY(101, 1), 
     firstname VARCHAR(20) NOT NULL, 
     age INT CHECK(age > 18),
     gender VARCHAR(30) DEFAULT 'male'
-); [cite: 71]</pre>
-    </div>
+ ); [cite: 257]
+</pre>
+                </div>
+            </div>
+        </section>
 
-    <div class="section-box">
-        <h2>3. Clauses and Operators</h2>
-        
-        <h3>ORDER BY Clause</h3>
-        <p>Used to sort the result-set in ascending (ASC) or descending (DESC) order[cite: 74].</p>
-        <pre>SELECT * FROM employee ORDER BY salary DESC; [cite: 75]</pre>
-
-        <h3>LIKE Operator (Pattern Matching)</h3>
-        <p>Used in a WHERE clause to search for a specified pattern in a column.</p>
-        <ul>
-            <li><strong>% (Percent):</strong> Represents zero, one, or multiple characters[cite: 78].</li>
-            <li><strong>_ (Underscore):</strong> Represents exactly one single character[cite: 78].</li>
-        </ul>
-        <pre>-- Finds firstname starting with any character, but second character is 'a'
-SELECT * FROM employee WHERE firstname LIKE '_a%'; [cite: 79]</pre>
-
-        <h3>GROUP BY Clause</h3>
-        <p>Groups rows that have the same values into summary rows.  It is often used with aggregate functions like COUNT, MAX, MIN, SUM, AVG[cite: 179, 180].</p>
-        <pre>-- Example: Count offers per circle
-SELECT circle, COUNT(offers) FROM endcustomer GROUP BY circle; [cite: 182]</pre>
-    </div>
-
-    <div class="section-box">
-        <h2>4. SQL Joins</h2>
-        <p>A JOIN clause is used to combine rows from two or more tables, based on a related column between them.  There are 6 main types[cite: 248].</p>
-        
-        
-        <h3>Types of Joins:</h3>
-        <ul>
-             <li><strong>Inner Join:</strong> Returns records that have matching values in both tables[cite: 248].</li>
-            <li><strong>Left Join:</strong> Returns all records from the left table, and the matched records from the right table. (Returns NULL for no match)  [cite: 253].</li>
-             <li><strong>Right Join:</strong> Returns all records from the right table, and the matched records from the left table[cite: 256].</li>
-             <li><strong>Full Join:</strong> Returns all records when there is a match in either left or right table[cite: 260].</li>
-             <li><strong>Cross Join:</strong> Returns the Cartesian product (all combinations) of the two tables[cite: 263].</li>
-             <li><strong>Self Join:</strong> A regular join, but the table is joined with itself[cite: 264].</li>
-        </ul>
-        <pre>-- Example: Joining 3 Tables (Inner Join)
+        <section id="clauses" class="mb-5">
+            <h2 class="section-title">3. Clauses & Operators</h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>GROUP BY</h4>
+                     <p>Groups rows that have the same values (often used with Aggregates like COUNT, SUM)[cite: 58, 59].</p>
+<pre>
+SELECT circle, COUNT(offers) 
+FROM endcustomer 
+ GROUP BY circle; [cite: 61]
+</pre>
+                </div>
+                <div class="col-md-6">
+                    <h4>ORDER BY</h4>
+                     <p>Sorts the result-set in Ascending (ASC) or Descending (DESC) order[cite: 260].</p>
+<pre>
 SELECT * FROM employee 
-INNER JOIN dept ON employee.id = dept.id
- INNER JOIN register ON employee.id = register.id; [cite: 103]</pre>
-    </div>
+ ORDER BY salary DESC; [cite: 261]
+</pre>
+                </div>
+            </div>
+            
+            <div class="alert alert-info mt-3">
+                 <strong>LIKE Operator:</strong> Used for pattern matching[cite: 264].
+                <ul>
+                    <li><code>%</code> : Matches multiple characters.</li>
+                    <li><code>_</code> : Matches exactly one character.</li>
+                </ul>
+            </div>
+        </section>
 
-    <div class="section-box">
-        <h2>5. Advanced Concepts</h2>
+        <section id="joins" class="mb-5">
+            <h2 class="section-title">4. SQL Joins <span class="badge bg-danger">Important</span></h2>
+             <p>Joins are used to combine rows from two or more tables[cite: 203].</p>
+            
 
-        <h3>Stored Procedures</h3>
-         <p>A stored procedure is a prepared SQL code that you can save, so the code can be reused over and over again[cite: 215]. It can accept parameters.</p>
-        <pre>-- Creating a procedure to update salary
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Inner Join</h5>
+                    </div>
+                     <p class="mb-1">Returns records that have matching values in <strong>both</strong> tables[cite: 203].</p>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Left Join</h5>
+                    </div>
+                     <p class="mb-1">Returns all records from the <strong>left</strong> table, and matched records from the right[cite: 208].</p>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Right Join</h5>
+                    </div>
+                     <p class="mb-1">Returns all records from the <strong>right</strong> table, and matched records from the left[cite: 211].</p>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Full Join</h5>
+                    </div>
+                     <p class="mb-1">Returns all records when there is a match in <strong>either</strong> left or right table[cite: 214].</p>
+                </a>
+            </div>
+        </section>
+
+        <section id="advanced" class="mb-5">
+            <h2 class="section-title">5. Advanced Concepts</h2>
+
+            <div class="accordion" id="accordionAdvanced">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                            <strong>Stored Procedures</strong>
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionAdvanced">
+                        <div class="accordion-body">
+                            <p>Saved SQL code that can be reused.  It can accept parameters[cite: 94].</p>
+<pre>
 CREATE PROCEDURE updateSalaryById
     @SalaryValue INT, @IdValue INT
 AS BEGIN
-    UPDATE employee SET salary = @SalaryValue WHERE id = @IdValue;
- END; [cite: 221]
+    UPDATE employee SET salary = @SalaryValue 
+    WHERE id = @IdValue;
+ END; [cite: 100]
+</pre>
+                        </div>
+                    </div>
+                </div>
 
--- Executing the procedure
- EXEC updateSalaryById @SalaryValue = 999, @IdValue = 5; [cite: 222]</pre>
-
-        <h3>Ranking Functions (DENSE_RANK)</h3>
-        <p><code>DENSE_RANK()</code> assigns a rank to each row within a partition of a result set.  It handles duplicates by giving them the same rank and does not skip the next rank number[cite: 206, 207].</p>
-        <pre>-- Finding the 2nd lowest salary using a Subquery
-SELECT * FROM (
-    SELECT *, DENSE_RANK() OVER (ORDER BY salary ASC) AS rnk FROM employee
- ) AS tempEmployee WHERE rnk = 2; [cite: 211]</pre>
-
-        <h3>Common Table Expressions (CTE / WITH Clause)</h3>
-         <p>The <code>WITH</code> clause defines a temporary result set (CTE) that you can reference within another SELECT, INSERT, UPDATE, or DELETE statement[cite: 208].</p>
-        <pre>-- Using WITH to find Nth highest salary
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                            <strong>Ranking Functions (DENSE_RANK) & CTE</strong>
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionAdvanced">
+                        <div class="accordion-body">
+                            <p>Used to find Nth highest/lowest salaries.  <code>DENSE_RANK</code> handles duplicates without skipping numbers[cite: 85].</p>
+<pre>
+-- Find 2nd lowest salary using CTE (WITH clause)
 WITH tempEmployee AS (
-    SELECT *, DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk FROM employee
+    SELECT *, DENSE_RANK() OVER (ORDER BY salary ASC) AS rnk 
+    FROM employee
 )
- SELECT * FROM tempEmployee WHERE rnk = 5; [cite: 210]</pre>
+ SELECT * FROM tempEmployee WHERE rnk = 2; [cite: 91]
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="interview" class="mb-5">
+            <div class="card border-danger mb-3">
+                <div class="card-header bg-danger text-white fw-bold">
+                    6.  Critical Interview Question: DELETE vs DROP vs TRUNCATE [cite: 24]
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Understanding the difference is vital for interviews.</p>
+                    <div class="table-responsive">
+                        <table class="table table-bordered border-danger">
+                            <thead >
+                                <tr>
+                                    <th scope="col">Feature</th>
+                                   <th scope="col">DELETE [cite: 24]</th>
+                                    <th scope="col">TRUNCATE [cite: 29]</th>
+                                    <th scope="col">DROP [cite: 26]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Group</strong></td>
+                                    <td><span class="fw-bold">DML</span></td>
+                                    <td><span class="fw-bold">DDL</span></td>
+                                    <td><span class="fw-bold">DDL</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Action</strong></td>
+                                    <td>Deletes specific or all rows.</td>
+                                    <td>Removes ALL rows (reset).</td>
+                                    <td>Removes Table + Data.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Speed</strong></td>
+                                    <td>Slowest.</td>
+                                    <td>Faster than Delete.</td>
+                                    <td>Fastest.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Rollback</strong></td>
+                                     <td><strong>Yes</strong>[cite: 25].</td>
+<td><strong>No</strong> (generally)[cite: 29].</td>
+                                     <td><strong>No</strong>[cite: 27].</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+ <div class="container-fluid">
+<div class="text-center mb-4">
+ 
+       <p style="font-family: cursive;">With ❤️ by Vikas Pawar</p>
+      </div>
+      </div>
+        <footer class="text-center text-muted py-4 border-top">
+            <p>&copy; Vikas Anant Pawar</p>
+        </footer>
+
     </div>
 
-    <div class="section-box important">
-        <h2>6. Critical Interview Question: DELETE vs DROP vs TRUNCATE</h2>
-         <p>This is a very important concept[cite: 24, 30].</p>
-
-        <table>
-            <tr>
-                <th>Feature</th>
-                 <th>DELETE [cite: 24, 25, 26]</th>
-                 <th>TRUNCATE [cite: 21, 22, 29]</th>
-                 <th>DROP [cite: 16, 17, 18, 28]</th>
-            </tr>
-            <tr>
-                <td><strong>Group</strong></td>
-                <td>DML (Data Manipulation)</td>
-                <td>DDL (Data Definition)</td>
-                <td>DDL (Data Definition)</td>
-            </tr>
-            <tr>
-                <td><strong>What it does</strong></td>
-                <td>Deletes specific rows (based on WHERE) or all rows.</td>
-                <td>Removes ALL rows from the table.</td>
-                <td>Deletes the entire table structure and data.</td>
-            </tr>
-            <tr>
-                <td><strong>Structure</strong></td>
-                <td>Table structure remains.</td>
-                <td>Table structure remains.</td>
-                <td>Table structure is removed.</td>
-            </tr>
-            <tr>
-                <td><strong>Speed</strong></td>
-                <td>Slowest (logs individual row deletions).</td>
-                <td>Faster than Delete, Slower than Drop.</td>
-                <td>Fastest.</td>
-            </tr>
-            <tr>
-                <td><strong>Rollback</strong></td>
-                <td>Can be rolled back.</td>
-                <td>Cannot be rolled back (generally).</td>
-                <td>Cannot be rolled back.</td>
-            </tr>
-        </table>
-    </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 
