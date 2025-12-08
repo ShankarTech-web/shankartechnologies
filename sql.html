@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Overview & Sub-Languages</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #16a085;
+            background-color: #e8f8f5;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 5px solid #16a085;
+        }
+        ul {
+            list-style-type: square;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .command-list dt {
+            font-weight: bold;
+            color: #c0392b;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 1.1em;
+        }
+        .command-list dd {
+            margin-left: 20px;
+            margin-bottom: 5px;
+        }
+        .note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            padding: 10px;
+            border-radius: 4px;
+            font-style: italic;
+            margin-top: 10px;
+        }
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Introduction to SQL</h1>
+        
+        <p><strong>SQL</strong> is a standard language for accessing and manipulating databases.</p>
+
+        <h2>What is SQL?</h2>
+        <ul>
+            <li><strong>SQL</strong> stands for Structured Query Language.</li>
+            <li><strong>SQL</strong> lets you access and manipulate databases.</li>
+            <li><strong>SQL</strong> became a standard of the American National Standards Institute (ANSI) in 1986, and of the International Organization for Standardization (ISO) in 1987.</li>
+        </ul>
+
+        <h2>What Can SQL Do?</h2>
+        <ul>
+            <li>Execute queries against a database</li>
+            <li>Retrieve data from a database</li>
+            <li>Insert records in a database</li>
+            <li>Update records in a database</li>
+            <li>Delete records from a database</li>
+            <li>Create new databases</li>
+            <li>Create new tables in a database</li>
+            <li>Create stored procedures in a database</li>
+            <li>Create views in a database</li>
+            <li>Set permissions on tables, procedures, and views</li>
+        </ul>
+
+        <hr>
+
+        <h1>The 5 Groups of SQL Queries</h1>
+        <p>All SQL Queries utilize commands that are divided into 5 distinct groups:</p>
+        <ol>
+            <li>Data Definition Language (DDL)</li>
+            <li>Data Manipulation Language (DML)</li>
+            <li>Data Query Language (DQL)</li>
+            <li>Data Control Language (DCL)</li>
+            <li>Transaction Control Language (TCL)</li>
+        </ol>
+
+        <h3>1. Data Definition Language (DDL)</h3>
+        <p><strong>Purpose:</strong> Used to define and modify the structure (schema) of the database objects (tables, indexes, views), not the data inside them.</p>
+        <dl class="command-list">
+            <dt>CREATE</dt>
+            <dd>Creates a new table, database, or other objects.</dd>
+            <dt>ALTER</dt>
+            <dd>Modifies an existing database object (e.g., adding a column).</dd>
+            <dt>DROP</dt>
+            <dd>Deletes an entire table or database object (structure + data).</dd>
+            <dt>TRUNCATE</dt>
+            <dd>Removes all records from a table but keeps the structure.</dd>
+            <dt>RENAME</dt>
+            <dd>Renames an object.</dd>
+        </dl>
+        <div class="note"><strong>Note:</strong> DDL commands are usually "auto-committed," meaning the changes are saved permanently immediately.</div>
+
+        <h3>2. Data Manipulation Language (DML)</h3>
+        <p><strong>Purpose:</strong> Used to manage and modify the data present within the schema.</p>
+        <dl class="command-list">
+            <dt>INSERT</dt>
+            <dd>Inserts new data (rows) into a table.</dd>
+            <dt>UPDATE</dt>
+            <dd>Updates existing data within a table.</dd>
+            <dt>DELETE</dt>
+            <dd>Deletes specific records (rows) from a table.</dd>
+        </dl>
+
+        <h3>3. Data Query Language (DQL)</h3>
+        <p><strong>Purpose:</strong> Used solely to retrieve and fetch data from the database. It does not modify data or structure.</p>
+        <dl class="command-list">
+            <dt>SELECT</dt>
+            <dd>The primary command used to query data.</dd>
+        </dl>
+        <div class="note"><strong>Note:</strong> In some contexts, DQL is grouped under DML, but keeping it separate is accurate because SELECT is non-destructive (read-only).</div>
+
+        <h3>4. Data Control Language (DCL)</h3>
+        <p><strong>Purpose:</strong> Used to handle rights, permissions, and security of the database system.</p>
+        <dl class="command-list">
+            <dt>GRANT</dt>
+            <dd>Gives users access privileges to the database.</dd>
+            <dt>REVOKE</dt>
+            <dd>Withdraws user access privileges.</dd>
+        </dl>
+
+        <h3>5. Transaction Control Language (TCL)</h3>
+        <p><strong>Purpose:</strong> Used to manage transactions within the database. These commands play a vital role in maintaining data integrity, usually working alongside DML commands.</p>
+        <dl class="command-list">
+            <dt>COMMIT</dt>
+            <dd>Saves the work done in a transaction permanently.</dd>
+            <dt>ROLLBACK</dt>
+            <dd>Restores the database to the state it was in before the last commit (undoes changes).</dd>
+            <dt>SAVEPOINT</dt>
+            <dd>Sets a point within a transaction to which you can later roll back.</dd>
+        </dl>
+
+        <h2>Quick Reference Table</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Group</th>
+                    <th>Focus</th>
+                    <th>Key Commands</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>DDL</strong></td>
+                    <td>Structure</td>
+                    <td>CREATE, ALTER, DROP, TRUNCATE</td>
+                </tr>
+                <tr>
+                    <td><strong>DML</strong></td>
+                    <td>Data Modification</td>
+                    <td>INSERT, UPDATE, DELETE</td>
+                </tr>
+                <tr>
+                    <td><strong>DQL</strong></td>
+                    <td>Data Retrieval</td>
+                    <td>SELECT</td>
+                </tr>
+                <tr>
+                    <td><strong>DCL</strong></td>
+                    <td>Permissions</td>
+                    <td>GRANT, REVOKE</td>
+                </tr>
+                <tr>
+                    <td><strong>TCL</strong></td>
+                    <td>Transactions</td>
+                    <td>COMMIT, ROLLBACK, SAVEPOINT</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
