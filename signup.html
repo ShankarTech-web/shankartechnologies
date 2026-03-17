@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h2>Signup</h2>
+
+    <input id="name" data-testid="name" placeholder="Name" />
+    <input id="email" data-testid="email" placeholder="Email" />
+    <input id="password" data-testid="password" placeholder="Password" />
+
+    <label>Gender</label>
+    <input type="radio" name="gender" value="Male" data-testid="male"> Male
+    <input type="radio" name="gender" value="Female" data-testid="female"> Female
+
+    <input type="date" id="dob" data-testid="dob" />
+
+    <select id="country" data-testid="country">
+        <option value="">Select</option>
+        <option>India</option>
+        <option>USA</option>
+    </select>
+
+    <input type="checkbox" class="skill" value="JS" data-testid="skill-js"> JS
+    <input type="checkbox" class="skill" value="Playwright" data-testid="skill-pw"> Playwright
+
+    <button onclick="signup()" data-testid="signup-btn">Signup</button>
+
+    <p id="message" data-testid="message"></p>
+
+    <a href="login.html">Go to Login</a>
+</div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
+
